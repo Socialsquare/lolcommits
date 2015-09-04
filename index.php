@@ -87,14 +87,26 @@ function process_image_files($hash, $message, $image_files) {
 	return $animation->writeImages($path, true) ? $path : null;
 }
 
-$message = $_POST['message'];
-$author = $_POST['author'];
-$hash = $_POST['hash'];
-$image_files = $_FILES['image']['tmp_name'];
-$gif_filename = process_image_files($hash, $message, $image_files);
+if(!array_key_exists('hash', $_POST)) {
+	// We'll be outputting a PDF
+	header('Content-Type: text/plain');
+	// It will be called downloaded.pdf
+	header('Content-Disposition: attachment; filename="lol-post-commit"');
+	// Print the content of the post commit hook, as downloaded from GitHub.
+	// We could just read it out of the folder on the webserver, but this way
+	// we don't need to deploy continously as changes are made to the post commit
+	// hook.
+	echo file_get_contents($config['post_commit_download_url']);
+} else {
+	$hash = $_POST['hash'];
+	$message = $_POST['message'];
+	$author = $_POST['author'];
+	$image_files = $_FILES['image']['tmp_name'];
+	$gif_filename = process_image_files($hash, $message, $image_files);
 
-$this_url=trim("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '/');
-$image_link = "$this_url/$gif_filename";
+	$this_url=trim("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '/');
+	$image_link = "$this_url/$gif_filename";
 
-slack_post_message($author, $message, $image_link);
+	slack_post_message($author, $message, $image_link);
+}
 ?>
