@@ -83,7 +83,7 @@ function process_image_files($hash, $message, $image_files) {
 		$frame->readImage($f);
 		$animation->addImage($frame);
 	}
-	$path_uncompressed = join(DIRECTORY_SEPARATOR, array($config['image_dir'], $hash.'-raw.gif'));
+	$path_uncompressed = join(DIRECTORY_SEPARATOR, array($config['image_dir'], $hash.'.gif'));
 	//$path_compressed = join(DIRECTORY_SEPARATOR, array($config['image_dir'], $hash.'.gif'));
   //$animation->setImageFormat('gif');
   //$animation->setImageDispose(3);
@@ -114,6 +114,6 @@ if(!array_key_exists('hash', $_POST)) {
 	$this_url=trim("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '/');
 	$image_link = "$this_url/$gif_filename";
 
-	//slack_post_message($author, $message, $image_link);
+	slack_post_message($author, $message, $image_link);
 }
 ?>
