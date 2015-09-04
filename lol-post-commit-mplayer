@@ -7,6 +7,7 @@ AUTHOR=$(git log -1 HEAD --format=%an)
 MESSAGE=$(git log -1 HEAD --format=%s)
 HASH=$(git log -1 HEAD --format=%H)
 
+$CMD=<< EndOfCommands
 # Waiting
 sleep 1
 # Using mplayer to take 12 images.
@@ -27,3 +28,6 @@ echo $file_args | xargs curl -g -X POST \
 
 # Clean up
 rm -rf $OUTPUT_DIR
+EndOfCommands
+
+echo $CMD
