@@ -11,7 +11,7 @@ HASH=$(git log -1 HEAD --format=%H)
 	# Waiting
 	sleep 1
 	# Using mplayer to take 12 images.
-	mplayer tv:// -tv driver=v4l2:device=$VIDEO_DEVICE:width=640:height=480:outfmt=rgb24 -frames 6 -fps 3 -vo jpeg:outdir=$OUTPUT_DIR
+	mplayer tv:// -tv driver=v4l2:device=$VIDEO_DEVICE:width=640:height=480:outfmt=rgb24 -frames 8 -fps 4 -vo jpeg:outdir=$OUTPUT_DIR
 
 	# Concatinate all these images into commandline arguments for curl.
 	file_args=()
