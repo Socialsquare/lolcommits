@@ -8,7 +8,7 @@ AUTHOR=$(git log -1 HEAD --format=%an)
 MESSAGE=$(git log -1 HEAD --format=%s)
 HASH=$(git log -1 HEAD --format=%H)
 IMAGE_WIDTH="400"
-IMAGE_HEIGHT="600"
+IMAGE_HEIGHT="300"
 
 (
 	# Waiting
