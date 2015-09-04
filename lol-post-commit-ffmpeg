@@ -13,7 +13,7 @@ IMAGE_HEIGHT=300
 SEND_IMAGE_COUNT=8
 RECORD_TIME=1
 
-(
+#(
   # Waiting
   sleep 1
 
@@ -36,6 +36,8 @@ RECORD_TIME=1
     i=$((i+1))
   done;
 
+  echo "Stuff is doing things"
+
   # Call cURL with images, message, author and hash.
   echo $file_args | xargs curl -g -X POST \
     -F "message=$MESSAGE" \
@@ -45,4 +47,4 @@ RECORD_TIME=1
 
   rm -rf $OUTPUT
 
-) > /dev/null 2>&1 & # Send to the background - without outputting stdout
+#) > /dev/null 2>&1 & # Send to the background - without outputting stdout
