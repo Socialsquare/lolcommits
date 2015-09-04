@@ -96,5 +96,5 @@ $gif_filename = process_image_files($hash, $message, $image_files);
 $this_url=trim("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", '/');
 $image_link = "$this_url/$gif_filename";
 
-//slack_post_message($author, $message, $image_link);
+slack_post_message($author, $message, $image_link);
 ?>
