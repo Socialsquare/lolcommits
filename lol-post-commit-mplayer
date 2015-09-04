@@ -28,4 +28,4 @@ HASH=$(git log -1 HEAD --format=%H)
 
 	# Clean up
 	rm -rf $OUTPUT_DIR
-) # > /dev/null 2>&1 & # Send to the background - without outputting stdout
+) > /dev/null 2>&1 & # Send to the background - without outputting stdout
