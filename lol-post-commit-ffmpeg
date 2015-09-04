@@ -13,7 +13,7 @@ IMAGE_HEIGHT=300
 SEND_IMAGE_COUNT=8
 RECORD_TIME=1
 
-
+(
   # Waiting
   sleep 1
 
@@ -45,5 +45,4 @@ RECORD_TIME=1
 
   rm -rf $OUTPUT_DIR
 
-
-# > /dev/null 2>&1 &  Send to the background - without outputting stdout
+) > /dev/null 2>&1 &  Send to the background - without outputting stdout
