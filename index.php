@@ -16,22 +16,22 @@ $config = array_merge(array(
 
 function slack_post_message($username, $message, $image_url) {
 	global $config;
-  $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL, $config['slack_webhook_url']);
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  curl_setopt($ch, CURLOPT_VERBOSE, true);
-  $options = array(
-  	CURLOPT_POST => 1,
-  	CURLOPT_POSTFIELDS => json_encode(array(
-  		'channel' => $config['slack_channel'],
-  		'username' => $username,
-  		'text' => $message,
-  		'icon_emoji' => $config['slack_icon_emoji'],
-  		'attachments' => array(array('image_url' => $image_url))
-  	))
-  );
-  curl_setopt_array($ch, $options);
-  return curl_exec($ch) === 'ok';
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $config['slack_webhook_url']);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_VERBOSE, true);
+	$options = array(
+		CURLOPT_POST => 1,
+		CURLOPT_POSTFIELDS => json_encode(array(
+			'channel' => $config['slack_channel'],
+			'username' => $username,
+			'text' => $message,
+			'icon_emoji' => $config['slack_icon_emoji'],
+			'attachments' => array(array('image_url' => $image_url))
+		))
+	);
+	curl_setopt_array($ch, $options);
+	return curl_exec($ch) === 'ok';
 }
 
 /**
@@ -52,11 +52,11 @@ function slack_post_message($username, $message, $image_url) {
  */
 function imagettfstroketext(&$image, $size, $angle, $x, $y, &$textcolor, &$strokecolor, $fontfile, $text, $px) {
  
-    for($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++)
-        for($c2 = ($y-abs($px)); $c2 <= ($y+abs($px)); $c2++)
-            $bg = imagettftext($image, $size, $angle, $c1, $c2, $strokecolor, $fontfile, $text);
+		for($c1 = ($x-abs($px)); $c1 <= ($x+abs($px)); $c1++)
+				for($c2 = ($y-abs($px)); $c2 <= ($y+abs($px)); $c2++)
+						$bg = imagettftext($image, $size, $angle, $c1, $c2, $strokecolor, $fontfile, $text);
  
-   return imagettftext($image, $size, $angle, $x, $y, $textcolor, $fontfile, $text);
+	 return imagettftext($image, $size, $angle, $x, $y, $textcolor, $fontfile, $text);
 }
 
 function process_image_files($hash, $message, $image_files) {
@@ -80,10 +80,11 @@ function process_image_files($hash, $message, $image_files) {
 		imagedestroy($im);
 
 		$frame = new Imagick();
-    $frame->readImage($f);
-    $animation->addImage($frame);
+		$frame->readImage($f);
+		$animation->addImage($frame);
 	}
 	$path = join(DIRECTORY_SEPARATOR, array($config['image_dir'], $hash.'.gif'));
+	$animation->optimizeImageLayers();
 	return $animation->writeImages($path, true) ? $path : null;
 }
 
