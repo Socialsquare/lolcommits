@@ -12,8 +12,10 @@ make sure you have the mplayer dependency installed, by running
 
 	apt-get install mplayer
 
-if you're on a debian system and finally symbolic link it into the .git/hooks
-folders of any project that you want to activate lol commits for.
+if you're on a debian system. Update the configuration parameters in the script
+to match your system and finally symbolic link it into the .git/hooks folders
+of any project that you want to activate lol commits for, by cd'ing into them
+and running
 
 	ln -s ~/lol-post-commit .git/hooks
 
