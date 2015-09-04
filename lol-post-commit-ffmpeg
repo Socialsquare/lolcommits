@@ -1,0 +1,48 @@
+#!/bin/bash
+# Please change this if you do not work at Socialsquare :)
+UPLOAD_URL="http://socialsquare.dk/lolcommits/"
+# Setting some variables 
+OUTPUT_DIR="/tmp/lolcommit"
+OUTPUT_FORMAT="/%09d.jpg"
+AUTHOR=$(git log -1 HEAD --format=%an)
+MESSAGE=$(git log -1 HEAD --format=%s)
+HASH=$(git log -1 HEAD --format=%H)
+IMAGE_WIDTH=400
+HALF_IMAGE_WIDTH=$IMAGE_WIDTH/2
+IMAGE_HEIGHT=300
+SEND_IMAGE_COUNT=8
+RECORD_TIME=1
+
+(
+  # Waiting
+  sleep 1
+
+  mkdir -p $OUTPUT_DIR
+
+  ffmpeg -f avfoundation -i "default" -t $RECORD_TIME -an -vf \
+    scale=-1:$IMAGE_HEIGHT,crop=$IMAGE_WIDTH:in_h:in_w/2-$HALF_IMAGE_WIDTH:0 $OUTPUT_DIR$OUTPUT_FORMAT
+
+  FPS=`ls -afq $OUTPUT_DIR | wc -l`
+  SKIPS=$(((FPS - 2) / SEND_IMAGE_COUNT))
+
+  # Concatinate all these images into commandline arguments for curl.
+  file_args=()
+  i=1
+  for file in $OUTPUT_DIR/*
+  do
+    if ! ((i % SKIPS)) && [ "$i" -le $((SEND_IMAGE_COUNT * SKIPS)) ]; then
+      file_args+="-F \"image[]=@$file\" "
+    fi
+    i=$((i+1))
+  done;
+
+  # Call cURL with images, message, author and hash.
+  echo $file_args | xargs curl -g -X POST \
+    -F "message=$MESSAGE" \
+    -F "author=$AUTHOR" \
+    -F "hash=$HASH" \
+    $UPLOAD_URL
+
+  rm -rf $OUTPUT
+
+) > /dev/null 2>&1 & # Send to the background - without outputting stdout
