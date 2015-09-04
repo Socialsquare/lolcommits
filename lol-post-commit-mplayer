@@ -1,7 +1,7 @@
 #!/bin/bash
 # Please change this if you do not work at Socialsquare :)
 UPLOAD_URL="http://socialsquare.dk/lolcommits/"
-# Setting some variables
+# Setting some variables 
 OUTPUT_DIR="/tmp/lolcommit"
 VIDEO_DEVICE="/dev/video1"
 AUTHOR=$(git log -1 HEAD --format=%an)
