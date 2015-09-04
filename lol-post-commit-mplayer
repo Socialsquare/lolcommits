@@ -7,12 +7,14 @@ VIDEO_DEVICE="/dev/video1"
 AUTHOR=$(git log -1 HEAD --format=%an)
 MESSAGE=$(git log -1 HEAD --format=%s)
 HASH=$(git log -1 HEAD --format=%H)
+IMAGE_WIDTH="400"
+IMAGE_HEIGHT="600"
 
 (
 	# Waiting
 	sleep 1
 	# Using mplayer to take 12 images.
-	mplayer tv:// -tv driver=v4l2:device=$VIDEO_DEVICE:width=640:height=480:outfmt=rgb24 -frames 8 -fps 4 -vo jpeg:outdir=$OUTPUT_DIR
+	mplayer tv:// -tv driver=v4l2:device=$VIDEO_DEVICE:width=$IMAGE_WIDTH:height=$IMAGE_HEIGHT:outfmt=rgb24 -frames 8 -fps 4 -vo jpeg:outdir=$OUTPUT_DIR
 
 	# Concatinate all these images into commandline arguments for curl.
 	file_args=()
