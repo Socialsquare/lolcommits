@@ -1,0 +1,29 @@
+#!/bin/bash
+# Setting some variables
+OUTPUT_DIR="/tmp/lolcommit"
+VIDEO_DEVICE="/dev/video1"
+UPLOAD_URL="http://socialsquare.dk/lolcommits/"
+AUTHOR=$(git log -1 HEAD --format=%an)
+MESSAGE=$(git log -1 HEAD --format=%s)
+HASH=$(git log -1 HEAD --format=%H)
+
+# Waiting
+sleep 1
+# Using mplayer to take 12 images.
+mplayer tv:// -tv driver=v4l2:device=$VIDEO_DEVICE:width=640:height=480:outfmt=rgb24 -frames 12 -fps 6 -vo jpeg:outdir=$OUTPUT_DIR
+
+# Concatinate all these images into commandline arguments for curl.
+file_args=()
+for file in $OUTPUT_DIR/*
+do
+    file_args+="-F \"image[]=@$file\" "
+done;
+# Call cURL with images, message, author and hash.
+echo $file_args | xargs curl -g -X POST \
+  -F "message=$MESSAGE" \
+  -F "author=$AUTHOR" \
+  -F "hash=$HASH" \
+  $UPLOAD_URL
+
+# Clean up
+rm -rf $OUTPUT_DIR
