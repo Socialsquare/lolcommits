@@ -13,13 +13,13 @@ IMAGE_HEIGHT=300
 SEND_IMAGE_COUNT=8
 RECORD_TIME=1
 
-(
+
   # Waiting
   sleep 1
 
   mkdir -p $OUTPUT_DIR
 
-  ffmpeg -f avfoundation -i "default" -t $RECORD_TIME -an -vf \
+  ffmpeg -v quiet -f avfoundation -i "default" -t $RECORD_TIME -an -vf \
     scale=-1:$IMAGE_HEIGHT,crop=$IMAGE_WIDTH:in_h:in_w/2-$HALF_IMAGE_WIDTH:0 $OUTPUT_DIR$OUTPUT_FORMAT
 
   FPS=`ls -afq $OUTPUT_DIR | wc -l`
@@ -43,6 +43,7 @@ RECORD_TIME=1
     -F "hash=$HASH" \
     $UPLOAD_URL
 
-  rm -rf $OUTPUT
+  rm -rf $OUTPUT_DIR
 
-)# > /dev/null 2>&1 & # Send to the background - without outputting stdout
+
+# > /dev/null 2>&1 &  Send to the background - without outputting stdout
