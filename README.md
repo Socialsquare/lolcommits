@@ -17,5 +17,5 @@ to match your system and finally symbolic link it into the .git/hooks folders
 of any project that you want to activate lol commits for, by cd'ing into them
 and running
 
-	ln -s ~/lol-post-commit .git/hooks
+	ln -s ~/lol-post-commit .git/hooks/post-commit
 
