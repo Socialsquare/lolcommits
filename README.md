@@ -19,3 +19,23 @@ and running
 
 	ln -s ~/lol-post-commit .git/hooks/post-commit
 
+
+# Getting started if you work at Socialsquare and you're on OSX
+Download the bash script called: `lol-post-commit-ffmpeg`, and place it 
+somewhere on your computer, where it's easy to find again. Then make
+it executable:
+
+	chmod u+x ~/lol-post-commit
+
+make sure you have the ffmpeg dependency installed, by running
+
+	brew install ffmpeg
+
+The final step, to make the script work with your current git project is
+to symbolic link it into your git project by running, from the git
+projects root.
+OBS: The location of the script has to be defined as an 
+absolute path, otherwise the symbolic link can't execute the script:
+
+	ln -s /Users/someuser/lol-post-commit .git/hooks/post-commit
+
