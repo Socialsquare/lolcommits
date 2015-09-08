@@ -8,11 +8,11 @@ sure you add execute permissions to the file
 
 	chmod u+x ~/lol-post-commit
 
-make sure you have the mplayer dependency installed, by running
+Make sure you have the mplayer dependency installed, by running
 
 	apt-get install mplayer
 
-if you're on a debian system. Update the configuration parameters in the script
+If you're on a debian system. Update the configuration parameters in the script
 to match your system and finally symbolic link it into the .git/hooks folders
 of any project that you want to activate lol commits for, by cd'ing into them
 and running
@@ -27,7 +27,7 @@ it executable:
 
 	chmod u+x ~/lol-post-commit
 
-make sure you have the ffmpeg dependency installed, by running
+Make sure you have the ffmpeg dependency installed, by running
 
 	brew install ffmpeg
 
