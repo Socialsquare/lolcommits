@@ -21,7 +21,7 @@ CAPTURED_TIME="1s"
 	# Waiting
 	sleep 1
 	# Using avconv
-	avconv -f video4linux2 -i $VIDEO_DEVICE -s $IMAGE_SIZE -y -t $CAPTURED_TIME $OUTPUT_DIR/frame-%04d.jpg
+	avconv -f video4linux2 -i $VIDEO_DEVICE -vsync 1 -r 15 -an -y -s $IMAGE_SIZE -t $CAPTURED_TIME $OUTPUT_DIR/frame-%04d.jpg
 
 	# Concatinate all these images into commandline arguments for curl.
 	file_args=()
